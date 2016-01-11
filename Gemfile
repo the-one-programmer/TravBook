@@ -10,6 +10,7 @@ gem 'spring', :group => :development
 
 gem 'pg'
 gem 'puma'
+gem 'active_model_serializers'
 
 
 
