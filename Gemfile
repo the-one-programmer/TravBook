@@ -2,16 +2,17 @@ source 'https://rubygems.org'
 
 
 gem 'rails', '4.2.5'
-
 gem 'rails-api'
-
-gem 'spring', :group => :development
-
 
 gem 'pg'
 gem 'puma'
 gem 'active_model_serializers'
 gem 'rack-cors', :require => 'rack/cors'
+
+group :development do
+  gem 'spring'
+  gem 'annotate'
+end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
