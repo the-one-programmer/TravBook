@@ -19,6 +19,7 @@ end
 
 group :test do
   gem 'shoulda-matchers', '~> 3.0'
+  gem 'test_after_commit'
 end
 
 # To use ActiveModel has_secure_password
