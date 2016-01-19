@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   validates_format_of :nationality, with: /\w*/i
 
   belongs_to :city
+  has_and_belongs_to_many :interests
 end
