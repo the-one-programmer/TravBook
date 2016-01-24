@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
 
   belongs_to :city
   has_and_belongs_to_many :interests
+  has_secure_password
 end
