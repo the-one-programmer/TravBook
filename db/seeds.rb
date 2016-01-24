@@ -8,10 +8,10 @@
 Interest.delete_all
 Country.delete_all
 City.delete_all
-Interest.create(:name => "swimming")
-Country.create(:name => "China")
-Country.create(:name => "Singapore")
-City.create(:name => "Shanghai" , :country_id => 1)
-City.create(:name => "Nanjing", :country_id => 1)
-City.create(:name => "Singapore", :country_id => 2)
+Interest.create(:name => "swimming", :id => 1)
+Country.create(:name => "China", :id => 1)
+Country.create(:name => "Singapore", :id => 2)
+City.create(:name => "Shanghai" , :country_id => 1, :id => 1)
+City.create(:name => "Nanjing", :country_id => 1, :id => 2)
+City.create(:name => "Singapore", :country_id => 2, :id => 3)
 
