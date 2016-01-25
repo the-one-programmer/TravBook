@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   resources :countries ,defaults: {format: :json}
   resources :interests ,defaults: {format: :json}
+  resources :languages ,defaults: {format: :json}
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
