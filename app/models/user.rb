@@ -1,13 +1,48 @@
+require 'digest/sha2'
 class User < ActiveRecord::Base
-  enum gender: [ :prefer_not_to_disclose, :female, :male ]
-
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-  validates :gender, presence: true, inclusion: { in: gender.keys }
-  validates_format_of :nationality, with: /\w*/i
-
+  enum gender: [:female, :male ]
+  validates :gender, :presence=>true
+  validates :email, :presence=>true, :uniqueness=>true
+  validates :name, :presence =>true
+  validates :password, :confirmation => true
+  attr_accessor :password_confirmation
+  attr_reader :password
   belongs_to :city
   has_and_belongs_to_many :interests
-  has_secure_password
+
+
+  validate :password_must_be_present
+
+  def User.authenticate(name,password)
+    if user = find_by_name(name)
+      if user.password_digest == encrypt_password(password, user.salt)
+        user
+      end
+    end
+  end
+  def User.encrypt_password(password,salt)
+    Digest::SHA2.hexdigest(password + "wibble" + salt)
+  end
+
+  def password=(password)
+
+    @password = password
+    puts @password
+    if password.present?
+      generate_salt
+      self.password_digest = self.class.encrypt_password(password,salt)
+    end
+  end
+
+  def gender_txt
+    ["female", "male"][self.gender]
+  end
+  private
+  def password_must_be_present
+    errors.add(:password, "Missing password") unless password_digest.present?
+  end
+
+  def generate_salt
+    self.salt = self.object_id.to_s + rand.to_s
+  end
 end

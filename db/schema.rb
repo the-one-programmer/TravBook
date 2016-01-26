@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125125515) do
+ActiveRecord::Schema.define(version: 20160126143052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,8 +58,6 @@ ActiveRecord::Schema.define(version: 20160125125515) do
   add_index "languages_users", ["user_id", "language_id"], name: "index_languages_users_on_user_id_and_language_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.string   "email"
     t.integer  "gender",               default: 0
     t.string   "nationality"
@@ -81,6 +79,8 @@ ActiveRecord::Schema.define(version: 20160125125515) do
     t.text     "accomendation_detail"
     t.boolean  "can_pickup"
     t.text     "pickup_detail"
+    t.string   "name"
+    t.string   "salt"
   end
 
   add_index "users", ["city_id"], name: "index_users_on_city_id", using: :btree

@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   resources :countries ,defaults: {format: :json}
   resources :interests ,defaults: {format: :json}
   resources :languages ,defaults: {format: :json}
+
+  resources :users , defaults:{format: :json} do
+    collection do
+      post :register
+    end
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
