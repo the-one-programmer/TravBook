@@ -13,6 +13,15 @@ Rails.application.routes.draw do
       post :register
     end
   end
+
+  resources :sessions, defaults:{format: :json}
+
+  scope defaults: { format: 'json' } do
+    post 'api/register', to: 'users#create'
+    post 'api/login'   , to: 'sessions#create'
+    post 'api/logout'  , to: 'sessions#destroy'
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
