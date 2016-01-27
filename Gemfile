@@ -40,3 +40,4 @@ gem 'apipie-rails'
 
 gem 'redis'
 gem 'redis-namespace'
+gem 'jwt'

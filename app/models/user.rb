@@ -1,4 +1,6 @@
 require 'digest/sha2'
+require 'jwt'
+require 'AuthUtil'
 class User < ActiveRecord::Base
   enum gender: [:female, :male ]
   validates :gender, :presence=>true
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
 
   validate :password_must_be_present
 
-  def User.authenticate(email,password)
+  def User.find_by_credentials(email,password)
     if user = find_by_email(email)
       if user.password_digest == encrypt_password(password, user.salt)
         user
@@ -34,6 +36,11 @@ class User < ActiveRecord::Base
 
   def gender_txt
     ["female", "male"][self.gender]
+  end
+
+  def generate_auth_token
+    payload = { user_id: self.id }
+    AuthToken.encode(payload)
   end
   private
   def password_must_be_present

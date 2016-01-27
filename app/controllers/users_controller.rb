@@ -1,18 +1,9 @@
 class UsersController < ApplicationController
-
+  skip_before_filter :authenticate_request , :only=>[:create]
   def new
     @user = User.new
   end
 
-  api :POST, '/api/register', 'Create User'
-  description 'Create user with specifed user params'
-  param :user, Hash, desc: 'User information', :required => true do
-    param :name, String, desc: 'Full name of the user', :required => true
-    param :email, String, desc: 'email of the user', :required => true
-    param :password, String, desc: 'password', :required => true
-    param :gender,["male","female"], desc: 'yes, no transgender yet sorry', :required => true
-    param :city_id, Integer, desc: 'city id mapped to a city in db', :required => true
-  end
   def create
     @user = User.new(user_params)
       if @user.save
