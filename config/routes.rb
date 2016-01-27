@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
     post 'api/register', to: 'users#create'
     post 'api/login'   , to: 'sessions#create'
     post 'api/logout'  , to: 'sessions#destroy'
+    get 'api/current_user',to:'sessions#current_user'
   end
 
   # Example of regular route:

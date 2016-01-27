@@ -25,9 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def password=(password)
-
     @password = password
-    puts @password
     if password.present?
       generate_salt
       self.password_digest = self.class.encrypt_password(password,salt)
