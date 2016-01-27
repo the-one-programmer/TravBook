@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     post 'api/login'   , to: 'sessions#create'
     post 'api/logout'  , to: 'sessions#destroy'
     get 'api/current_user',to:'sessions#current_user'
+    get 'api/interests', to: 'interests#index'
+    get 'api/countries', to: 'countries#index'
   end
 
   # Example of regular route:
