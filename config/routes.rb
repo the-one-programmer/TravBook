@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     post 'api/register', to: 'users#create'
     post 'api/login'   , to: 'auth#authenticate'
     get 'api/current_user',to:'users#current_user'
+    get 'api/show/:id' , to: 'users#show'
+    post 'api/update'  , to: 'users#update'
     get 'api/interests', to: 'interests#index'
     get 'api/countries', to: 'countries#index'
 

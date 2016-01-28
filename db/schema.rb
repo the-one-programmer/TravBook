@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126143052) do
+ActiveRecord::Schema.define(version: 20160128164232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20160126143052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "countries_users", id: false, force: :cascade do |t|
+    t.integer "user_id",    null: false
+    t.integer "country_id", null: false
+  end
+
+  add_index "countries_users", ["country_id", "user_id"], name: "index_countries_users_on_country_id_and_user_id", using: :btree
+  add_index "countries_users", ["user_id", "country_id"], name: "index_countries_users_on_user_id_and_country_id", using: :btree
 
   create_table "interests", force: :cascade do |t|
     t.string   "name"

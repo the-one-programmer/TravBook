@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   attr_reader :password
   belongs_to :city
   has_and_belongs_to_many :interests
-
-
+  has_and_belongs_to_many :languages
+  has_and_belongs_to_many :countries
   validate :password_must_be_present
 
   def User.find_by_credentials(email,password)
