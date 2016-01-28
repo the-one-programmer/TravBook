@@ -14,6 +14,15 @@ class UsersController < ApplicationController
 
   end
 
+  def current_user
+    if @current_user
+      render json: {id:@current_user.id}, status:200
+    else
+      render json: {id:nil}, status:200
+    end
+
+  end
+
   private
 
   def user_params

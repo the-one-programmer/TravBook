@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   scope defaults: { format: 'json' } do
     post 'api/register', to: 'users#create'
     post 'api/login'   , to: 'auth#authenticate'
-    #get 'api/current_user',to:'auth#current_user'
+    get 'api/current_user',to:'users#current_user'
     get 'api/interests', to: 'interests#index'
     get 'api/countries', to: 'countries#index'
 
