@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     post 'api/update'  , to: 'users#update'
     get 'api/interests', to: 'interests#index'
     get 'api/countries', to: 'countries#index'
+    post 'api/request_reset_password', to: 'users#request_reset_password'
 
   end
 

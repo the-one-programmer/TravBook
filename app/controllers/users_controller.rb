@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :authenticate_request , :only=>[:create]
+  skip_before_filter :authenticate_request , :only=>[:create,:request_reset_password]
   def new
     @user = User.new
   end
@@ -15,7 +15,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
+    if (@user.nil?)
+      render json: { message: 'User not found'}, status: 400
+    end
   end
 
   def update
@@ -48,6 +51,17 @@ class UsersController < ApplicationController
       render json: { message: 'Account successfully updated!' }, status: 200
     else
       render :error, status: 400
+    end
+  end
+
+  def request_reset_password
+    user = User.find_by_email(params[:email])
+    if (user)
+      token = user.generate_auth_token
+      ApplicationMailer.reset_password_email(user,token).deliver_later
+      render json: { message: "Email sent."}, status: 200
+    else
+      render json: { message: "Email not registered in database"}, status: 400
     end
   end
 
