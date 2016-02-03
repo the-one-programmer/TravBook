@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :authenticate_request , :only=>[:create,:request_reset_password]
+  skip_before_filter :authenticate_request , :only=>[:create,:request_reset_password,:@current_user]
   def new
     @user = User.new
   end
