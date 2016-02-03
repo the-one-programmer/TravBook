@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def update
     if (params.has_key?(:interests))
       @current_user.interests.clear
-      params.require(:interests).each do |interest_id|
+      params[:interests].each do |interest_id|
         if (Interest.exists?(:id => interest_id))
           @current_user.interests << Interest.find(interest_id)
         end
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     end
     if (params.has_key?(:languages))
       @current_user.languages.clear
-      params.require(:languages).each do |language_id|
+      params[:languages].each do |language_id|
         if (Language.exists?(:id => language_id))
           @current_user.languages << Language.find(language_id)
         end
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     end
     if (params.has_key?(:countries_want_to_go))
       @current_user.countries.clear
-      params.require(:countries_want_to_go).each do |country_id|
+      params[:countries_want_to_go].each do |country_id|
         if (Country.exists?(:id => country_id))
           @current_user.countries << Language.find(country_id)
         end
