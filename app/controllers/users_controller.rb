@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if (params.has_key?(:interests))
+    if (params.has_key?(:interests)) and params[:interests].present?
       @current_user.interests.clear
       params[:interests].each do |interest_id|
         if (Interest.exists?(:id => interest_id))
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         end
       end
     end
-    if (params.has_key?(:languages))
+    if (params.has_key?(:languages)) and params[:interests].present?
       @current_user.languages.clear
       params[:languages].each do |language_id|
         if (Language.exists?(:id => language_id))
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         end
       end
     end
-    if (params.has_key?(:countries_want_to_go))
+    if (params.has_key?(:countries_want_to_go)) and params[:interests].present?
       @current_user.countries.clear
       params[:countries_want_to_go].each do |country_id|
         if (Country.exists?(:id => country_id))
