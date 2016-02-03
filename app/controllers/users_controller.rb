@@ -42,10 +42,11 @@ class UsersController < ApplicationController
       @current_user.countries.clear
       params[:countries_want_to_go].each do |country_id|
         if (Country.exists?(:id => country_id))
-          @current_user.countries << Language.find(country_id)
+          @current_user.countries << Country.find(country_id)
         end
       end
     end
+
     if @current_user.update(user_params)
       @message = 'Profile updated.'
       render json: { message: 'Account successfully updated!' }, status: 200
