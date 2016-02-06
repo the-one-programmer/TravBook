@@ -46,6 +46,10 @@ GEM
     arel (6.0.3)
     bcrypt (3.1.10)
     builder (3.2.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     concurrent-ruby (1.0.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -62,11 +66,18 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.99)
+    mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    paperclip (4.3.4)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (= 0.3.0)
     pg (0.18.4)
     puma (2.12.3)
     rack (1.6.4)
@@ -148,6 +159,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   jbuilder
   jwt
+  paperclip (~> 4.3)
   pg
   puma
   rack-cors

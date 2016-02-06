@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     if @current_user
       render json: {id:@current_user.id}, status:200
     else
-      render json: {id:nil}, status:200
+      render json: {id:nil}, status:400
     end
   end
 
