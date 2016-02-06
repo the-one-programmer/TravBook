@@ -77,7 +77,9 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email, :password,:gender, :city_id,:willing_to_host)
+    params.permit(:name, :email, :password,:gender, :city_id,
+      :willing_to_host, :can_transport, :can_tourguide, :can_accomendation, :can_pickup,
+      :transport_detail, :tourguide_detail, :accomendation_detail, :pickup_detail)
   end
 
 end
