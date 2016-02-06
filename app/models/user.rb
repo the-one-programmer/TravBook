@@ -1,7 +1,11 @@
 require 'digest/sha2'
 require 'jwt'
 require 'AuthUtil'
+require 'Paperclip'
 class User < ActiveRecord::Base
+
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
   enum gender: [:female, :male ]
   validates :gender, :presence=>true
   validates :email, :presence=>true, :uniqueness=>true
