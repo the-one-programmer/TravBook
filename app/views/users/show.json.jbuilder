@@ -8,3 +8,11 @@ json.avatar @user.avatar.url
 json.interests @user.interests.collect { |d| d.id }
 json.languages @user.languages.collect { |d| d.id }
 json.countries_want_to_go @user.countries.collect { |d| d.id }
+json.followeds @user.followeds do |followed|
+  json.followed_id followed.id
+  json.followed_name followed.name
+end
+json.followers @user.followers do |follower|
+  json.follower_id follower.id
+  json.follower_name follower.name
+end

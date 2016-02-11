@@ -74,6 +74,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow
+    if (@current_user.follow(params[:user_id]))
+      render json: {message:"success"}, status:200
+    else
+      redner json: {message:@current_user.errors}, status:400
+    end
+  end
+
+  def unfollow
+    if (@current_user.unfollow(params[:user_id]))
+      render json: {message:"success"}, status:200
+    else
+      redner json: {message:@current_user.errors}, status:400
+    end
+  end
+
   private
 
   def user_params

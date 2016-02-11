@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get 'api/current_user',to:'users#current_user'
     get 'api/show/:id' , to: 'users#show'
     post 'api/update'  , to: 'users#update'
+    post 'api/follow'  , to: 'users#follow'
+    post 'api/unfollow'  , to: 'users#unfollow'
     get 'api/interests', to: 'interests#index'
     get 'api/countries', to: 'countries#index'
     get 'api/languages', to: 'languages#index'

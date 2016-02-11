@@ -18,6 +18,14 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :languages
   has_and_belongs_to_many :countries
   validate :password_must_be_present
+  has_many :active_relationships, class_name:  "Relationship",
+           foreign_key: "follower_id",
+           dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+           foreign_key: "followed_id",
+           dependent:   :destroy
+  has_many :followeds, through: :active_relationships
+  has_many :followers, through: :passive_relationships, source: :follower
 
   def User.find_by_credentials(email,password)
     if user = find_by_email(email)
@@ -46,6 +54,21 @@ class User < ActiveRecord::Base
     payload = { user_id: self.id }
     AuthToken.encode(payload)
   end
+
+  def follow(other_user_id)
+    active_relationships.create(followed_id: other_user_id)
+  end
+
+  # Unfollows a user.
+  def unfollow(other_user_id)
+    active_relationships.find_by(followed_id: other_user_id).destroy
+  end
+
+  # Returns true if the current user is following the other user.
+  def following?(other_user_id)
+    following.include?(User.find(other_user_id))
+  end
+
   private
   def password_must_be_present
     errors.add(:password, "Missing password") unless password_digest.present?
@@ -54,4 +77,6 @@ class User < ActiveRecord::Base
   def generate_salt
     self.salt = self.object_id.to_s + rand.to_s
   end
+
+
 end
