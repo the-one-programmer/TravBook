@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     if (@current_user.follow(params[:user_id]))
       render json: {message:"success"}, status:200
     else
-      redner json: {message:@current_user.errors}, status:400
+      render json: {message:@current_user.errors}, status:400
     end
   end
 
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
     if (@current_user.unfollow(params[:user_id]))
       render json: {message:"success"}, status:200
     else
-      redner json: {message:@current_user.errors}, status:400
+      render json: {message:@current_user.errors}, status:400
     end
   end
 
