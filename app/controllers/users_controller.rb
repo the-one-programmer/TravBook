@@ -90,6 +90,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    @users = User.where('name ilike ?', '%' + params[:query] + '%').sort_by{|user| -user.matching_value(@current_user)}
+    if (@users.include?(@current_user))
+      @users.delete(@current_user)
+    end
+  end
+
+  def recommend
+    @users = User.all.sort_by {|user| -user.matching_value(@current_user)}
+    if (@users.include?(@current_user))
+      @users.delete(@current_user)
+    end
+
+  end
+
   private
 
   def user_params

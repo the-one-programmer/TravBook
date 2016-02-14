@@ -1,0 +1,1 @@
+json.users @users.collect { |d| d.id }

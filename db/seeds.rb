@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.delete_all
 Interest.delete_all
 Country.delete_all
 City.delete_all
@@ -26,3 +27,19 @@ Language.create(:name => "English", :id => 2)
 Language.create(:name => "Japanese", :id => 3)
 Language.create(:name => "Korean", :id => 4)
 Language.create(:name => "Vietamese", :id => 5)
+
+User.create(:name => "matanghao", :email=>"ma.tanghao@dhs.sg", :password=>"123",:city_id=>2,:id=>1)
+User.create(:name => "Ying Tao", :email=>"tao.ying@vjc.sg", :password=>"123",:city_id=>2,:id=>2)
+User.create(:name => "Koh Jing Yu", :email=>"koh.jingyu@dhs.sg", :password=>"123",:city_id=>3,:id=>3)
+matanghao = User.find(1)
+[1,2].each do |interest_id|
+  if (Interest.exists?(:id => interest_id))
+    matanghao.interests << Interest.find(interest_id)
+  end
+end
+kohjingyu = User.find(3)
+[2,3].each do |interest_id|
+  if (Interest.exists?(:id => interest_id))
+    kohjingyu.interests << Interest.find(interest_id)
+  end
+end

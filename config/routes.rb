@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     post 'api/login'   , to: 'auth#authenticate'
     get 'api/current_user',to:'users#current_user'
     get 'api/show/:id' , to: 'users#show'
+    post 'api/search'  , to: 'users#search'
+    get 'api/recommend', to: 'users#recommend'
     post 'api/update'  , to: 'users#update'
     post 'api/follow'  , to: 'users#follow'
     post 'api/unfollow'  , to: 'users#unfollow'

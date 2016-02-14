@@ -69,6 +69,17 @@ class User < ActiveRecord::Base
     following.include?(User.find(other_user_id))
   end
 
+  def matching_value(other_user)
+    value = 0
+    value += (other_user.languages & languages).count
+    value += (other_user.interests & interests).count
+    value += (other_user.countries & countries).count
+    if (other_user.willing_to_host && other_user.countries.include?(city.country))
+      value += 5
+    end
+    value
+  end
+
   private
   def password_must_be_present
     errors.add(:password, "Missing password") unless password_digest.present?
