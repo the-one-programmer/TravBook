@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def follow
-    if (@current_user.follow(params[:user_id]))
+    if (@current_user.follow(params[:user_id])) and @current_user.id != params[:user_id]
       render json: {message:"success"}, status:200
     else
       render json: {message:@current_user.errors}, status:400
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    if (@current_user.unfollow(params[:user_id]))
+    if (@current_user.unfollow(params[:user_id])) and @current_user.id != params[:user_id]
       render json: {message:"success"}, status:200
     else
       render json: {message:@current_user.errors}, status:400
