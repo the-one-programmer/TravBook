@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :countries ,defaults: {format: :json}
   resources :interests ,defaults: {format: :json}
   resources :languages ,defaults: {format: :json}
-
+  resources :posts , defaults:{format: :json}
   resources :users , defaults:{format: :json} do
     collection do
       post :register
@@ -18,6 +18,12 @@ Rails.application.routes.draw do
   resources :sessions, defaults:{format: :json}
 
   scope defaults: { format: 'json' } do
+    post 'api/like_post/:id', to: 'posts#like'
+    post 'api/unlike_post/:id', to: 'posts#unlike'
+    post 'api/new_post', to: 'posts#create'
+    get 'api/show_post/:id', to: 'posts#show'
+    post 'api/update_post/:id', to: 'posts#update'
+    post 'api/delete_post/:id',to: 'post#destroy'
     post 'api/register', to: 'users#create'
     post 'api/login'   , to: 'auth#authenticate'
     get 'api/current_user',to:'users#current_user'

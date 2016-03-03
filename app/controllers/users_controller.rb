@@ -11,7 +11,6 @@ class UsersController < ApplicationController
       else
         render json: { message: @user.errors}, status: 400
       end
-
   end
 
   def show
