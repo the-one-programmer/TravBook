@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-
+  self.per_page = 10
   validates :user_id, presence: true
   default_scope -> { order(created_at: :desc) }
 

@@ -7,6 +7,7 @@ gem 'pg'
 gem 'puma'
 gem 'active_model_serializers'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'will_paginate', '~> 3.0.6'
 
 group :development do
   gem 'spring'

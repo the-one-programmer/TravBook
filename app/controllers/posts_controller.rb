@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+
+  def index
+    @posts = Post.where(:user_id => params[:id]).paginate(:page => params[:page])
+  end
+
   def create
     @post = @current_user.posts.build(post_params)
     if @post.save

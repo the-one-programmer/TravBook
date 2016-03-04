@@ -3,6 +3,7 @@ require 'jwt'
 require 'AuthUtil'
 require 'Paperclip'
 class User < ActiveRecord::Base
+  self.per_page = 10
   has_many :posts, dependent: :destroy
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
@@ -26,6 +27,12 @@ class User < ActiveRecord::Base
            dependent:   :destroy
   has_many :followeds, through: :active_relationships
   has_many :followers, through: :passive_relationships, source: :follower
+
+  has_many :passive_relationships, class_name:  "Like",
+           foreign_key: "liked_id",
+           dependent:   :destroy
+
+  has_many :likeds, through: :passive_relationships, source: :liked
 
 
   def User.find_by_credentials(email,password)
