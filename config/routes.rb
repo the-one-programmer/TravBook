@@ -18,13 +18,15 @@ Rails.application.routes.draw do
   resources :sessions, defaults:{format: :json}
 
   scope defaults: { format: 'json' } do
+    post 'api/reply/:id' , to:'replies#create'
+    post 'api/delete_reply/:id',to: 'replies#destroy'
     post 'api/like_post/:id', to: 'posts#like'
     post 'api/unlike_post/:id', to: 'posts#unlike'
     post 'api/new_post', to: 'posts#create'
     get 'api/show_post/:id', to: 'posts#show'
     post 'api/list_post/:id', to:'posts#index'
     post 'api/update_post/:id', to: 'posts#update'
-    post 'api/delete_post/:id',to: 'post#destroy'
+    post 'api/delete_post/:id',to: 'posts#destroy'
     post 'api/repost/:id' ,to:'posts#repost'
     post 'api/register', to: 'users#create'
     post 'api/login'   , to: 'auth#authenticate'

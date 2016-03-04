@@ -9,3 +9,6 @@ json.likers post.likers do |liker|
 end
 json.type post.type
 json.repost_count post.number_of_reposts
+json.replies post.replies do |reply|
+  json.partial! 'replies/reply', reply: reply
+end

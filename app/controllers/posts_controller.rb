@@ -30,6 +30,17 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find_by_id(params[:id])
+    if (@post==nil)
+      render json: { message: 'Post not found'}, status: 400
+      return
+    end
+    if @post.destroy
+      render json: {message:"success"}, status:200
+    else
+      render json: {message:@post.errors}, status:400
+    end
+
   end
 
   def like
