@@ -19,4 +19,16 @@ class Post < ActiveRecord::Base
   def liked?(user_id)
     liker.include?(User.find(user_id))
   end
+
+  def type
+    if (original_post_id == nil)
+      "normal"
+    else
+      "repost"
+    end
+  end
+
+  def number_of_reposts
+    Post.where(:original_post_id => id).count
+  end
 end

@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find_by_id(params[:id])
     if (@post.nil?)
-      render json: { message: 'User not found'}, status: 400
+      render json: { message: 'Post not found'}, status: 400
     end
   end
 
@@ -47,6 +47,26 @@ class PostsController < ApplicationController
       render json: {message:"success"}, status:200
     else
       render json: {message:@post.errors}, status:400
+    end
+  end
+
+  def repost
+    @post = @current_user.posts.build(post_params)
+    op = Post.find_by_id(params[:id])
+    if (op)
+      if (op.original_post_id == nil)
+        @post.original_post_id = params[:id]
+      else
+        @post.original_post_id = op.original_post_id
+      end
+    else
+      render json: { message: 'Original post does not exist'}, status: 400
+    end
+
+    if @post.save
+      render json: { message: 'Post successfully created!' }, status: 200
+    else
+      render json: { message: @post.errors}, status: 400
     end
   end
 

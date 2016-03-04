@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     post 'api/list_post/:id', to:'posts#index'
     post 'api/update_post/:id', to: 'posts#update'
     post 'api/delete_post/:id',to: 'post#destroy'
+    post 'api/repost/:id' ,to:'posts#repost'
     post 'api/register', to: 'users#create'
     post 'api/login'   , to: 'auth#authenticate'
     get 'api/current_user',to:'users#current_user'

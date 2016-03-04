@@ -102,7 +102,6 @@ class UsersController < ApplicationController
     if (@users.include?(@current_user))
       @users.delete(@current_user)
     end
-
   end
 
   private
