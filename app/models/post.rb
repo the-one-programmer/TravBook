@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
            foreign_key: "liker_id",
            dependent:   :destroy
   has_many :likers, through: :active_relationships
+  has_many :replies, dependent: :destroy
 
   def like(user_id)
     active_relationships.create(liked_id: user_id)

@@ -28,12 +28,8 @@ class User < ActiveRecord::Base
   has_many :followeds, through: :active_relationships
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_many :passive_relationships, class_name:  "Like",
-           foreign_key: "liked_id",
-           dependent:   :destroy
-
   has_many :likeds, through: :passive_relationships, source: :liked
-
+  has_many :replies, dependent: :destroy
 
   def User.find_by_credentials(email,password)
     if user = find_by_email(email)
