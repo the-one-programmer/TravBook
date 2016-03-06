@@ -104,6 +104,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def feed
+    @posts = @current_user.feed.paginate(:page => params[:page])
+  end
+
   private
 
   def user_params

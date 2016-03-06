@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     get 'api/countries', to: 'countries#index'
     get 'api/languages', to: 'languages#index'
     post 'api/request_reset_password', to: 'users#request_reset_password'
+    post 'api/feed' , to: 'users#feed'
 
   end
 
