@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   end
 
   def recommend
-    @users = User.all.sort_by {|user| user.matching_value(@current_user)}
+    @users = (User.all - @current_user.followeds).sort_by {|user| user.matching_value(@current_user)}
                  .last(20)
     if (@users.include?(@current_user))
       @users.delete(@current_user)
