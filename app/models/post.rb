@@ -4,17 +4,17 @@ class Post < ActiveRecord::Base
   default_scope -> { order(created_at: :desc) }
 
   has_many :active_relationships, class_name:  "Like",
-           foreign_key: "liker_id",
+           foreign_key: "liked_id",
            dependent:   :destroy
   has_many :likers, through: :active_relationships
   has_many :replies, dependent: :destroy
 
   def like(user_id)
-    active_relationships.create(liked_id: user_id)
+    active_relationships.create(liker_id: user_id)
   end
 
   def unlike(user_id)
-    active_relationships.find_by(liked_id: user_id).destroy
+    active_relationships.find_by(liker_id: user_id).destroy
   end
 
   def liked?(user_id)
