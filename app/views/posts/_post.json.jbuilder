@@ -12,3 +12,5 @@ json.repost_count post.number_of_reposts
 json.replies post.replies do |reply|
   json.partial! 'replies/reply', reply: reply
 end
+json.original_post_id post.original_post_id
+

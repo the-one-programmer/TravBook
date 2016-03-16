@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
+
     @user = User.find_by_id(params[:id])
     if (@user.nil?)
       render json: { message: 'User not found'}, status: 400
@@ -21,6 +22,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    params[:avatar] = parse_image_data(params[:avatar]) if params[:avatar]
+    @current_user.avatar = params[:avatar]
     if (params.has_key?(:interests)) and params[:interests].present?
       @current_user.interests.clear
       params[:interests].each do |interest_id|
@@ -52,6 +55,8 @@ class UsersController < ApplicationController
     else
       render :error, status: 400
     end
+  ensure
+    clean_tempfile
   end
 
   def request_reset_password
@@ -114,6 +119,28 @@ class UsersController < ApplicationController
     params.permit(:name, :email, :password,:gender, :city_id,
       :willing_to_host, :can_transport, :can_tourguide, :can_accomendation, :can_pickup,
       :transport_detail, :tourguide_detail, :accomendation_detail, :pickup_detail, :avatar)
+  end
+
+  def parse_image_data(image_data)
+    @tempfile = Tempfile.new('item_image')
+    @tempfile.binmode
+    @tempfile.write Base64.decode64(image_data[:content])
+    @tempfile.rewind
+
+    uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        tempfile: @tempfile,
+        filename: image_data[:filename]
+    )
+
+    uploaded_file.content_type = image_data[:content_type]
+    uploaded_file
+  end
+
+  def clean_tempfile
+    if @tempfile
+      @tempfile.close
+      @tempfile.unlink
+    end
   end
 
 end
