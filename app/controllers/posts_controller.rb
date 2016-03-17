@@ -70,6 +70,8 @@ class PostsController < ApplicationController
       else
         @post.original_post_id = op.original_post_id
       end
+
+      @post.content = op.content
     else
       render json: { message: 'Original post does not exist'}, status: 400
     end
