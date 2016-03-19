@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   def parse_image_data(image_data)
     @tempfile = Tempfile.new('item_image')
     @tempfile.binmode
-    @tempfile.write Base64.decode64(image_data[:content])
+    @tempfile.write Base64.decode64(image_data[:base64])
     @tempfile.rewind
 
     uploaded_file = ActionDispatch::Http::UploadedFile.new(
@@ -132,7 +132,7 @@ class UsersController < ApplicationController
         filename: image_data[:filename]
     )
 
-    uploaded_file.content_type = image_data[:content_type]
+    uploaded_file.content_type = image_data[:filetype]
     uploaded_file
   end
 
