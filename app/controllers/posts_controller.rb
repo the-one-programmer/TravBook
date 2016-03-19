@@ -1,8 +1,15 @@
 class PostsController < ApplicationController
 
+  api :POST, '/list_post/:id', 'list all posts of a user'
+  param :id,:number, desc: 'user id' ,:required => true
+
   def index
     @posts = Post.where(:user_id => params[:id]).paginate(:page => params[:page])
   end
+
+  api :POST, '/new_post', 'Create new post'
+  description 'Create a a post'
+  param :content, String, desc: 'post content' ,:required => true
 
   def create
     @post = @current_user.posts.build(post_params)
@@ -13,12 +20,20 @@ class PostsController < ApplicationController
     end
   end
 
+  api :GET, '/show_post/:id', 'show a post'
+  description 'show a post'
+  param :id,:number, desc: 'post id' ,:required => true
+
   def show
     @post = Post.find_by_id(params[:id])
     if (@post.nil?)
       render json: { message: 'Post not found'}, status: 400
     end
   end
+  api :POST, '/update_post/:id', 'update a post'
+  description 'update a  post'
+  param :id,:number, desc: 'post id' ,:required => true
+  param :content, String, desc: 'updated content' ,:required => true
 
   def update
     @post = Post.find_by_id(params[:id])
@@ -28,6 +43,9 @@ class PostsController < ApplicationController
       render :error, status: 400
     end
   end
+  api :POST, '/delete_post/:id', 'Delete a post'
+  description 'Delete a post'
+  param :id,:number, desc: 'post id' ,:required => true
 
   def destroy
     @post = Post.find_by_id(params[:id])
@@ -42,6 +60,9 @@ class PostsController < ApplicationController
     end
 
   end
+  api :POST, '/like_post/:id', 'like a post'
+  description 'like a post'
+  param :id,:number, desc: 'post id' ,:required => true
 
   def like
     @post = Post.find_by_id(params[:id])
@@ -52,6 +73,11 @@ class PostsController < ApplicationController
     end
   end
 
+  api :POST, '/unlike_post/:id', 'unlike a post'
+  description 'unlike a post'
+  param :id,:number, desc: 'post id' ,:required => true
+
+
   def unlike
     @post = Post.find_by_id(params[:id])
     if (@post.unlike(@current_user.id))
@@ -60,6 +86,9 @@ class PostsController < ApplicationController
       render json: {message:@post.errors}, status:400
     end
   end
+  api :POST, '/repost/:id', 'make repost'
+  param :id,:number, desc: 'original post id' ,:required => true
+  param :content, String, desc: 'repost content'
 
   def repost
     @post = @current_user.posts.build(post_params)
@@ -71,7 +100,7 @@ class PostsController < ApplicationController
         @post.original_post_id = op.original_post_id
       end
 
-      @post.content = op.content
+      @post.content = op.content #what?
     else
       render json: { message: 'Original post does not exist'}, status: 400
     end

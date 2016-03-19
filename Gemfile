@@ -43,3 +43,6 @@ gem 'apipie-rails'
 gem 'redis'
 gem 'redis-namespace'
 gem 'jwt'
+
+gem 'simplecov', :require => false, :group => :test
+gem 'factory_girl_rails'

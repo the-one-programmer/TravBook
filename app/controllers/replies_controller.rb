@@ -1,5 +1,11 @@
 class RepliesController < ApplicationController
 
+  api :POST, '/reply/:id', 'Create reply'
+  description 'Create a reply under a post'
+  param :id,:number, desc: 'post that replies to' ,:required => true
+  param :content, String, desc: 'reply content' ,:required => true
+  param :reply_to,String, desc: 'id of the user replying to',:required => true
+
   def create
     @post = Post.find_by_id(params[:id])
     if (@post == nil)
@@ -13,6 +19,10 @@ class RepliesController < ApplicationController
       render json: { message: @reply.errors}, status: 400
     end
   end
+
+  api :POST, '/delete_reply/:id', 'delete reply'
+  description 'delete a reply under a post'
+  param :id,:number, desc: 'the id of the reply' ,:required => true
 
   def destroy
     @reply = Reply.find_by_id(params[:id])

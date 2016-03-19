@@ -46,3 +46,9 @@ I've been there before.
    ``` Shell
    bundle exec rails-api server
    ```
+
+5. Documentation
+
+   ``` Shell
+   /apipie
+   ```
