@@ -14,3 +14,8 @@ json.replies post.replies do |reply|
 end
 json.original_post_id post.original_post_id
 
+if post.original_post_id
+	original_post = Post.find(post.original_post_id)
+	json.original_post_content original_post.content
+	json.original_post_author User.find(original_post.user_id).name
+end
